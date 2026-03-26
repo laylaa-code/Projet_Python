@@ -2,10 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse 
 from django.contrib import messages
 from .models import Student, Parent 
- 
+
+def teacher_dashboard(request):
+    return render(request, 'teacher/teacher-dashboard.html')
+
+def student_dashboard(request):
+    return render(request, 'students/student-dashboard.html')
+
 def student_list(request): 
     students = Student.objects.all()
     return render(request, 'students/students.html', {'students': students})
+
 def edit_student(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     parent = student.parent  # <-- AJOUTÉ pour le template
@@ -50,8 +57,15 @@ def edit_student(request, student_id):
 def view_student(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     return render(request, 'students/student-details.html', {'student': student})
-def delete_student(request, student_id): 
-    return redirect('student_list')  
+def delete_student(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+
+    if request.method == 'POST':
+        student.delete()
+        return redirect('student_list')
+
+    return render(request, 'students/delete-student.html', {'student': student})
+
 def add_student(request): 
     if request.method == 'POST': 
         # Récupérer les données de l'étudiant 

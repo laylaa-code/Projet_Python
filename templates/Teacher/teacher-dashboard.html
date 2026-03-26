@@ -1,0 +1,124 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Teacher Dashboard</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Teacher</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Dashboard Stats -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-lg-3">
+                <div class="dash-widget">
+                    <div class="dash-widget-info">
+                        <h3>{{ total_students }}</h3>
+                        <span>Students</span>
+                    </div>
+                    <div class="dash-widget-icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-3">
+                <div class="dash-widget">
+                    <div class="dash-widget-info">
+                        <h3>{{ total_courses }}</h3>
+                        <span>Courses</span>
+                    </div>
+                    <div class="dash-widget-icon">
+                        <i class="fa fa-book"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-3">
+                <div class="dash-widget">
+                    <div class="dash-widget-info">
+                        <h3>{{ assignments_pending }}</h3>
+                        <span>Pending Assignments</span>
+                    </div>
+                    <div class="dash-widget-icon">
+                        <i class="fa fa-tasks"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-3">
+                <div class="dash-widget">
+                    <div class="dash-widget-info">
+                        <h3>{{ messages_count }}</h3>
+                        <span>Messages</span>
+                    </div>
+                    <div class="dash-widget-icon">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Dashboard Stats -->
+
+        <!-- Students Table -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Recent Students</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Course</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                    <tr>
+                                        <td>{{ student.name }}</td>
+                                        <td>{{ student.email }}</td>
+                                        <td>{{ student.course.name }}</td>
+                                        <td>
+                                            {% if student.is_active %}
+                                                <span class="badge badge-success">Active</span>
+                                            {% else %}
+                                                <span class="badge badge-danger">Inactive</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="4">No students found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Students Table -->
+
+    </div>
+</div>
+
+{% endblock %}
