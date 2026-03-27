@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Edit Time Table</h3>
+<form method="post">
+{% csrf_token %}
+<input class="form-control mb-2" name="day" value="{{ t.day }}">
+<input class="form-control mb-2" name="subject" value="{{ t.subject }}">
+<input class="form-control mb-2" type="time" name="start_time" value="{{ t.start_time }}">
+<input class="form-control mb-2" type="time" name="end_time" value="{{ t.end_time }}">
+<button class="btn btn-success">Update</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+ {% extends 'base.html' %}
+{% block content %}
+
+<h3>Add Exam</h3>
+
+<form method="post">
+{% csrf_token %}
+<input class="form-control mb-2" name="name" placeholder="Exam Name">
+<input class="form-control mb-2" name="subject" placeholder="Subject">
+<input class="form-control mb-2" type="date" name="date">
+<input class="form-control mb-2" type="number" name="max_marks" placeholder="Max Marks">
+<button class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}

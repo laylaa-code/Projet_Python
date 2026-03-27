@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Add Time Table</h3>
+<form method="post">
+{% csrf_token %}
+<input class="form-control mb-2" name="day" placeholder="Day">
+<input class="form-control mb-2" name="subject" placeholder="Subject">
+<input class="form-control mb-2" type="time" name="start_time">
+<input class="form-control mb-2" type="time" name="end_time">
+<button class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}

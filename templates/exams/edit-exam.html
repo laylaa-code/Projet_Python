@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Edit Exam</h3>
+
+<form method="post">
+{% csrf_token %}
+<input class="form-control mb-2" name="name" value="{{ exam.name }}">
+<input class="form-control mb-2" name="subject" value="{{ exam.subject }}">
+<input class="form-control mb-2" type="date" name="date" value="{{ exam.date }}">
+<input class="form-control mb-2" type="number" name="max_marks" value="{{ exam.max_marks }}">
+<button class="btn btn-success">Update</button>
+</form>
+
+{% endblock %}

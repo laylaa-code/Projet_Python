@@ -18,17 +18,20 @@ from student import views
 from django.contrib import admin 
 from django.urls import path, include 
  
-urlpatterns = [ 
-    path('admin/', admin.site.urls), 
-    path('', include('faculty.urls')), 
+ urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('faculty.urls')),
     path('student/', include('student.urls')),
-    path('authentication/', include('home_auth.urls')), 
+    path('authentication/', include('home_auth.urls')),
+
     path('student/dashboard/', views.student_dashboard, name='student_dashboard'),
     path('teacher/dashboard/', views.teacher_dashboard, name='teacher_dashboard'),
+
     path('teachers/', include('teacher.urls')),
     path('departments/', include('department.urls')),
     path('subjects/', include('subject.urls')),
 
+    path('holidays/', include('holidays.urls')),
+    path('exams/', include('exams.urls')),
+    path('timetable/', include('timetable.urls')),
 ]
-
-

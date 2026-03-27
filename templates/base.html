@@ -1,0 +1,41 @@
+  {% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>PreSkool Dashboard</title>
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+<body>
+<div class="main-wrapper">
+
+<div class="header">
+<h2 style="padding:10px;">School Dashboard</h2>
+</div>
+
+<div class="sidebar">
+<ul>
+    <!-- ✅ CORRIGÉ -->
+    <li><a href="{% url 'holidays_home' %}">Holidays</a></li>
+
+    <!-- ⚠️ À adapter selon tes urls.py -->
+    <li><a href="{% url 'exams_home' %}">Exams</a></li>
+    <li><a href="{% url 'timetable_home' %}">Time Table</a></li>
+</ul>
+</div>
+
+<div class="page-wrapper">
+<div class="content container-fluid">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+{% block content %}{% endblock %}
+</div>
+</div>
+
+</div>
+</body>
+</html>
