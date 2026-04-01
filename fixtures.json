@@ -1,0 +1,112 @@
+[
+  {
+    "model": "department.department",
+    "pk": 1,
+    "fields": {
+      "name": "Informatique"
+    }
+  },
+  {
+    "model": "department.department",
+    "pk": 2,
+    "fields": {
+      "name": "Mathématiques"
+    }
+  },
+  {
+    "model": "department.department",
+    "pk": 3,
+    "fields": {
+      "name": "Physique"
+    }
+  },
+  {
+    "model": "teacher.teacher",
+    "pk": 1,
+    "fields": {
+      "name": "Test Teacher",
+      "email": "testteacher@example.com",
+      "department": 1
+    }
+  },
+  {
+    "model": "student.parent",
+    "pk": 1,
+    "fields": {
+      "father_name": "Robert Smith",
+      "father_occupation": "Engineer",
+      "father_mobile": "1234567890",
+      "father_email": "robert@example.com",
+      "mother_name": "Mary Smith",
+      "mother_occupation": "Teacher",
+      "mother_mobile": "0987654321",
+      "mother_email": "mary@example.com",
+      "present_address": "123 Main St",
+      "permanent_address": "123 Main St"
+    }
+  },
+  {
+    "model": "student.student",
+    "pk": 1,
+    "fields": {
+      "first_name": "Test",
+      "last_name": "Student",
+      "student_id": "teststudent@example.com",
+      "gender": "F",
+      "date_of_birth": "2005-05-15",
+      "student_class": "10th Grade",
+      "joining_date": "2023-09-01",
+      "mobile_number": "1112223333",
+      "admission_number": "ADM001",
+      "section": "A",
+      "religion": "Christian",
+      "parent": 1
+    }
+  },
+  {
+    "model": "subject.subject",
+    "pk": 1,
+    "fields": {
+      "name": "Python Programming",
+      "department": 1
+    }
+  },
+  {
+    "model": "subject.subject",
+    "pk": 2,
+    "fields": {
+      "name": "Calculus",
+      "department": 2
+    }
+  },
+  {
+    "model": "holidays.holiday",
+    "pk": 1,
+    "fields": {
+      "title": "Summer Vacation",
+      "start_date": "2024-07-01",
+      "end_date": "2024-08-31",
+      "description": "Annual summer break"
+    }
+  },
+  {
+    "model": "exams.exam",
+    "pk": 1,
+    "fields": {
+      "name": "Mid-term Exam",
+      "subject": "Python Programming",
+      "date": "2024-03-15",
+      "max_marks": 100
+    }
+  },
+  {
+    "model": "timetable.timetable",
+    "pk": 1,
+    "fields": {
+      "day": "Monday",
+      "subject": "Python Programming",
+      "start_time": "09:00",
+      "end_time": "10:00"
+    }
+  }
+]

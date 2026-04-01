@@ -70,14 +70,14 @@ def student_list(request):
     students = Student.objects.all()
     return render(request, 'students/students.html', {'student_list': students})
 
-@role_required('admin')
+@any_authenticated_required
 def edit_student(request, student_id):
     student = get_object_or_404(Student, student_id=student_id)
 
     # Check permissions: admin can edit all, student can edit own
-    if not (request.user.is_admin or (request.user.is_student and student.student_id == request.user.username)):
-        messages.error(request, "Vous ne pouvez modifier que votre propre profil.")
-        return redirect('student_list')
+    if not (request.user.is_admin or (request.user.is_student and student.student_id in [request.user.username, request.user.email])):
+        messages.error(request, "Vous n'avez pas la permission de modifier ce profil.")
+        return redirect('student_dashboard' if request.user.is_student else 'student_list')
 
     parent = student.parent  # <-- AJOUTÉ pour le template
 

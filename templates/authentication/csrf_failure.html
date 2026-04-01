@@ -1,0 +1,15 @@
+{% extends 'Home/base.html' %}
+{% block body %}
+<div class="container mt-5">
+  <h2 class="text-danger">Erreur CSRF</h2>
+  <p>Une session d'authentification a expiré ou le token CSRF est invalide.</p>
+  <p>Essayez la chose suivante :</p>
+  <ul>
+    <li>Rechargez la page (Ctrl+F5).</li>
+    <li>Supprimez les cookies du site (127.0.0.1).</li>
+    <li>Ouvrez la page de connexion en navigation privée.</li>
+  </ul>
+  <p>Raison technique : {{ reason }}</p>
+  <a href="{% url 'login' %}" class="btn btn-primary">Retour à la connexion</a>
+</div>
+{% endblock %}

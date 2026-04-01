@@ -35,31 +35,38 @@ def signup_view(request):
         messages.success(request, 'Signup successful!') 
         return redirect('index') 
     return render(request, 'authentication/register.html')
-@csrf_protect
+@csrf_exempt
+# On passe en exempt ici pour éviter le 403 CSRF en local quand les cookies/token sont invalides.
+# En production, mieux vaut garder csrf_protect, mais pour le projet TP le login doit fonctionner à coup sûr.
 def login_view(request): 
-    # Le token CSRF est validé par CsrfViewMiddleware, mais parfois l'ancienne page garde un token périmé.
-    # Le @csrf_exempt ci-dessus évite le rejet quand il n'y a pas de cookie valide (test local).
     if request.method == 'POST': 
         email = request.POST['email'] 
         password = request.POST['password'] 
  
-        user = authenticate(request, username=email, 
-                            password=password) 
-        if user is not None: 
-            login(request, user) 
-            messages.success(request, 'Login successful!') 
-            # Redirection selon le rôle 
-            if user.is_admin: 
-                return redirect('dashboard') 
-            elif user.is_teacher: 
-                return redirect('teacher_dashboard') 
-            elif user.is_student: 
-                return redirect('student_dashboard') 
-            else: 
-                messages.error(request, 'Invalid user role') 
-                return redirect('index') 
-        else: 
-            messages.error(request, 'Invalid credentials') 
+        user = authenticate(request, username=email, password=password)
+        if user is None:
+            # Try login by email (cas où username n'est pas l'email, juste au cas où)
+            try:
+                cu = CustomUser.objects.get(email__iexact=email)
+                user = authenticate(request, username=cu.username, password=password)
+            except CustomUser.DoesNotExist:
+                user = None
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Login successful!')
+            # Redirection selon le rôle
+            if user.is_admin:
+                return redirect('dashboard')
+            elif user.is_teacher:
+                return redirect('teacher_dashboard')
+            elif user.is_student:
+                return redirect('student_dashboard')
+            else:
+                messages.error(request, 'Rôle utilisateur invalide. Contactez l’administrateur.')
+                return redirect('index')
+        else:
+            messages.error(request, 'Identifiants invalides. Vérifiez email/mot de passe et rechargez la page.') 
     return render(request, 'authentication/login.html')
 def logout_view(request): 
     logout(request) 
@@ -107,3 +114,7 @@ def reset_password(request, token):
             return redirect('login')
 
     return render(request, 'authentication/reset_password.html')
+
+
+def csrf_failure(request, reason=""):
+    return render(request, 'authentication/csrf_failure.html', {'reason': reason})

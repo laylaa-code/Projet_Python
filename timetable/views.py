@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Timetable
 from django.contrib import messages
 from school.decorators import role_required, any_authenticated_required
+from django.http import JsonResponse
 
 @any_authenticated_required
 def timetable_list(request):
@@ -40,3 +41,10 @@ def delete_timetable(request, id):
     t.delete()
     messages.success(request, "Timetable deleted!")
     return redirect('timetable_home')
+
+@any_authenticated_required
+def export_timetable_json(request):
+    data = list(Timetable.objects.values('day', 'subject', 'start_time', 'end_time'))
+    response = JsonResponse(data, safe=False)
+    response['Content-Disposition'] = 'attachment; filename="timetable.json"'
+    return response

@@ -137,5 +137,6 @@ AUTH_USER_MODEL = 'home_auth.CustomUser'
 AUTHENTICATION_BACKENDS = ( 
     'django.contrib.auth.backends.ModelBackend',  # Backend par défaut 
 ) 
-LOGIN_URL = '/authentication/login/' 
+LOGIN_URL = '/authentication/login/'
+CSRF_FAILURE_VIEW = 'home_auth.views.csrf_failure' 
 LOGIN_REDIRECT_URL = '/dashboard/'

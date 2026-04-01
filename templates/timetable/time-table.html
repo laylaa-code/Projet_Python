@@ -14,6 +14,7 @@
                 <div class="col-auto">
                     {% if user.is_teacher or user.is_admin %}
                     <a href="{% url 'add_timetable' %}" class="btn btn-primary"><i class="fas fa-plus me-1"></i> Add Time Table Entry</a>
+                    <a href="{% url 'export_timetable_json' %}" class="btn btn-outline-info ml-2" target="_blank"><i class="fas fa-download"></i> Export JSON</a>
                     <a href="https://www.visual-timetabling.be/" target="_blank" class="btn btn-outline-secondary ml-2"><i class="fas fa-external-link-alt"></i> Visual Timetabling</a>
                     {% endif %}
                 </div>
@@ -57,4 +58,15 @@
         </div>
     </div>
 </div>
+
+{% if user.is_teacher or user.is_admin %}
+<div class="card mt-4">
+    <div class="card-header">
+        <h4 class="card-title">Visual Timetabling Integration</h4>
+    </div>
+    <div class="card-body">
+        <iframe src="https://www.visual-timetabling.be/" width="100%" height="600" frameborder="0"></iframe>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
